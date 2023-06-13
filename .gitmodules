@@ -4,3 +4,6 @@
 [submodule "ros2_canopen"]
 	path = ros2_canopen
 	url = https://github.com/ipa-vsp/ros2_canopen.git
+[submodule "realsense-ros"]
+	path = realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
