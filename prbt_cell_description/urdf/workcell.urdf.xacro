@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="prbt_workcell">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="prbt_cell">
     <xacro:arg name="robot_prefix" default="prbt_"/>
+    <xacro:arg name="bus_config" default="$(find prbt_robot_support)/config/prbt/bus.yml"/>
+    <xacro:arg name="master_config" default="$(find prbt_robot_support)/config/prbt/master.dcf"/>
+    <xacro:arg name="can_interface_name" default="vcan0"/>
+    <xacro:arg name="master_bin" default=""/>
     <xacro:arg name="use_nominal_extrinsics" default="false"/>
     <xacro:arg name="add_plug" default="false" />
     <xacro:arg name="use_mesh" default="true" />
@@ -8,6 +12,7 @@
     <xacro:include filename="$(find prbt_cell_description)/urdf/robot_cell.xacro"/>
     <xacro:include filename="$(find prbt_cell_description)/urdf/schunk_egp40.xacro" />
     <xacro:include filename="$(find prbt_robot_support)/urdf/prbt_macro.xacro" />
+    <xacro:include filename="$(find prbt_robot_support)/urdf/prbt.ros2_control.xacro" />
     <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
     <!-- Add world link -->
@@ -24,6 +29,14 @@
         <parent link="robot_link"/>
         <child link="$(arg robot_prefix)base_link"/>
     </joint>
+
+    <xacro:prbt_ros2_control
+        name="$(arg robot_prefix)"
+        prefix="$(arg robot_prefix)"
+        bus_config="$(arg bus_config)"
+        master_config="$(arg master_config)"
+        can_interface_name="$(arg can_interface_name)"
+        master_bin="$(arg master_bin)" />
 
     <!-- Add gripper -->
     <xacro:schunk_egp40 name="gripper" prefix="$(arg robot_prefix)" parent="$(arg robot_prefix)tool0">
