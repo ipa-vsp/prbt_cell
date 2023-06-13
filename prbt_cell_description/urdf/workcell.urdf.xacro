@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="prbt_workcell">
     <xacro:arg name="robot_prefix" default="prbt_"/>
+    <xacro:arg name="use_nominal_extrinsics" default="false"/>
+    <xacro:arg name="add_plug" default="false" />
+    <xacro:arg name="use_mesh" default="true" />
 
     <xacro:include filename="$(find prbt_cell_description)/urdf/robot_cell.xacro"/>
     <xacro:include filename="$(find prbt_cell_description)/urdf/schunk_egp40.xacro" />
     <xacro:include filename="$(find prbt_robot_support)/urdf/prbt_macro.xacro" />
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 
     <!-- Add world link -->
     <link name="world" />
@@ -25,5 +29,10 @@
     <xacro:schunk_egp40 name="gripper" prefix="$(arg robot_prefix)" parent="$(arg robot_prefix)tool0">
         <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:schunk_egp40>
+
+    <!-- Add camera -->
+    <xacro:sensor_d435 parent="$(arg robot_prefix)schunk_egp40_base_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)" add_plug="$(arg add_plug)" use_mesh="$(arg use_mesh)">
+        <origin xyz="0 -0.05 ${0.015+0.010}" rpy="0 -${pi/2} ${pi/2}"/>
+    </xacro:sensor_d435>
 
 </robot>
