@@ -3,6 +3,7 @@
     <xacro:arg name="robot_prefix" default="prbt_"/>
 
     <xacro:include filename="$(find prbt_cell_description)/urdf/robot_cell.xacro"/>
+    <xacro:include filename="$(find prbt_cell_description)/urdf/schunk_egp40.xacro" />
     <xacro:include filename="$(find prbt_robot_support)/urdf/prbt_macro.xacro" />
 
     <!-- Add world link -->
@@ -19,5 +20,10 @@
         <parent link="robot_link"/>
         <child link="$(arg robot_prefix)base_link"/>
     </joint>
+
+    <!-- Add gripper -->
+    <xacro:schunk_egp40 name="gripper" prefix="$(arg robot_prefix)" parent="$(arg robot_prefix)tool0">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:schunk_egp40>
 
 </robot>
