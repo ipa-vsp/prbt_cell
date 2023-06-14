@@ -23,7 +23,7 @@
     </xacro:robot_cell>
 
     <!-- Add robot -->
-    <xacro:prbt prefix="$(arg robot_prefix)" />
+    <!-- <xacro:prbt prefix="$(arg robot_prefix)" />
 
     <joint name="$(arg robot_prefix)_robot_cell_joint" type="fixed">
         <parent link="robot_link"/>
@@ -36,16 +36,16 @@
         bus_config="$(arg bus_config)"
         master_config="$(arg master_config)"
         can_interface_name="$(arg can_interface_name)"
-        master_bin="$(arg master_bin)" />
+        master_bin="$(arg master_bin)" /> -->
 
     <!-- Add gripper -->
-    <xacro:schunk_egp40 name="gripper" prefix="$(arg robot_prefix)" parent="$(arg robot_prefix)tool0">
+    <!-- <xacro:schunk_egp40 name="gripper" prefix="$(arg robot_prefix)" parent="$(arg robot_prefix)tool0">
         <origin xyz="0 0 0" rpy="0 0 0" />
-    </xacro:schunk_egp40>
+    </xacro:schunk_egp40> -->
 
     <!-- Add camera -->
-    <xacro:sensor_d435 parent="$(arg robot_prefix)schunk_egp40_base_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)" add_plug="$(arg add_plug)" use_mesh="$(arg use_mesh)">
+    <!-- <xacro:sensor_d435 parent="$(arg robot_prefix)schunk_egp40_base_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)" add_plug="$(arg add_plug)" use_mesh="$(arg use_mesh)">
         <origin xyz="0 -0.05 ${0.015+0.010}" rpy="0 -${pi/2} ${pi/2}"/>
-    </xacro:sensor_d435>
+    </xacro:sensor_d435> -->
 
 </robot>

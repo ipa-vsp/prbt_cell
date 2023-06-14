@@ -21,7 +21,7 @@
         <link name="${prefix}visuals_link">
             <visual>
                 <geometry>
-                    <mesh filename="package://prbt_cell_description/meshes/Assembly_new.STL" scale="0.001 0.001 0.001" />
+                    <mesh filename="package://prbt_cell_description/meshes/prbt_cell_v1.0.STL" scale="0.001 0.001 0.001" />
                 </geometry>
                 <material name="gray"/>
             </visual>
