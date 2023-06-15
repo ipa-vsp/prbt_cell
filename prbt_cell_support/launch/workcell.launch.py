@@ -33,7 +33,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "can_interface_name",
-            default_value="vcan0",
+            default_value="can0",
             description="Interface name for can",
         )
     )
@@ -126,11 +126,11 @@ def generate_launch_description():
         controller_manager_node,
         controller_spawner_node,
         TimerAction(
-            period=10.0,
+            period=20.0,
             actions=[move_group]
         ),
         TimerAction(
-            period=10.0,
+            period=20.0,
             actions=[rviz]
         ),
     ]

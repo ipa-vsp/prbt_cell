@@ -46,35 +46,38 @@ int main(int argc, char** argv)
     
     planning_components->setStartStateToCurrentState();
 
+    tf2::Quaternion q;
+    q.setRPY(3.142, -0.009, -3.137);
+
     geometry_msgs::msg::PoseStamped target_pose1;
     target_pose1.header.frame_id = "world";
-    target_pose1.pose.orientation.x = 0.044;
-    target_pose1.pose.orientation.y = 0.993;
-    target_pose1.pose.orientation.z = -0.050;
-    target_pose1.pose.orientation.w = -0.093;
-    target_pose1.pose.position.x = -0.150;
-    target_pose1.pose.position.y = 0.048;
-    target_pose1.pose.position.z = 1.125;
+    target_pose1.pose.orientation.x = q.getX();
+    target_pose1.pose.orientation.y = q.getY();
+    target_pose1.pose.orientation.z = q.getZ();
+    target_pose1.pose.orientation.w = q.getW();
+    target_pose1.pose.position.x = 0.007;
+    target_pose1.pose.position.y = 0.018;
+    target_pose1.pose.position.z = 1.147;
 
     geometry_msgs::msg::PoseStamped target_pose2;
     target_pose2.header.frame_id = "world";
-    target_pose2.pose.orientation.x = 0.819;
-    target_pose2.pose.orientation.y = -0.574;
-    target_pose2.pose.orientation.z = 0.004;
-    target_pose2.pose.orientation.w = 0.002;
-    target_pose2.pose.position.x = 0.111;
-    target_pose2.pose.position.y = -0.306;
-    target_pose2.pose.position.z = 1.125;
+    target_pose2.pose.orientation.x = q.getX();
+    target_pose2.pose.orientation.y = q.getY();
+    target_pose2.pose.orientation.z = q.getZ();
+    target_pose2.pose.orientation.w = q.getW();
+    target_pose2.pose.position.x = 0.01;
+    target_pose2.pose.position.y = 0.018;
+    target_pose2.pose.position.z = 1.147;
 
     geometry_msgs::msg::PoseStamped target_pose3;
     target_pose3.header.frame_id = "world";
-    target_pose3.pose.orientation.x = 0.509;
-    target_pose3.pose.orientation.y = -0.497;
-    target_pose3.pose.orientation.z = 0.489;
-    target_pose3.pose.orientation.w = 0.505;
-    target_pose3.pose.position.x = -0.052;
-    target_pose3.pose.position.y = -0.652;
-    target_pose3.pose.position.z = 1.125;
+    target_pose3.pose.orientation.x = q.getX();
+    target_pose3.pose.orientation.y = q.getY();
+    target_pose3.pose.orientation.z = q.getZ();
+    target_pose3.pose.orientation.w = q.getW();
+    target_pose3.pose.position.x = -0.107;
+    target_pose3.pose.position.y = 0.00;
+    target_pose3.pose.position.z = 1.147;
 
     while(rclcpp::ok())
     {
