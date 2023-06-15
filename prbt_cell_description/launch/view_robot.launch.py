@@ -14,7 +14,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     prbt_xacro_file = os.path.join(get_package_share_directory('prbt_cell_description'), 'urdf',
-                                     'workcell.urdf.xacro')
+                                     'prbt_cell.urdf.xacro')
 
     robot_description = Command(
         [

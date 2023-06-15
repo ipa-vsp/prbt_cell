@@ -1,10 +1,10 @@
 moveit_setup_assistant_config:
   urdf:
     package: prbt_cell_description
-    relative_path: urdf/workcell.urdf.xacro
+    relative_path: urdf/prbt_cell.urdf.xacro
   srdf:
-    relative_path: config/prbt_workcell.srdf
+    relative_path: config/prbt_cell.srdf
   package_settings:
     author_name: Vishnuprasad Prachandabhanu
     author_email: vishnuprasad.prachandabhanu@ipa.fraunhofer.de
-    generated_timestamp: 1686821504
+    generated_timestamp: 1686835289

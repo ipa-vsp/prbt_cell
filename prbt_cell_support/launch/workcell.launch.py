@@ -62,7 +62,7 @@ def generate_launch_description():
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
-            PathJoinSubstitution([FindPackageShare(LaunchConfiguration("description_package")), "urdf", "workcell.urdf.xacro"]),
+            PathJoinSubstitution([FindPackageShare(LaunchConfiguration("description_package")), "urdf", "prbt_cell.urdf.xacro"]),
             " ",
             "bus_config:=",
             bus_config,
