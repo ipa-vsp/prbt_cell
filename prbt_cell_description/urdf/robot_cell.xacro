@@ -6,13 +6,13 @@
         prefix
         parent
         *origin">
-        <xacro:property name="robot_center_offset_length" value="0.42" />
+        <xacro:property name="robot_center_offset_length" value="0.315" />
         <xacro:property name="robot_center_offset_width" value="0.02" />
-        <xacro:property name="robot_base_height" value="0.99" />
-        <xacro:property name="robotcell_length" value="1.44" />
-        <xacro:property name="robotcell_width" value="0.94" />
+        <xacro:property name="robot_base_height" value="0.62" />
+        <xacro:property name="robotcell_length" value="1.20" />
+        <xacro:property name="robotcell_width" value="0.80" />
         <xacro:property name="robotcell_height" value="1.16" />
-        <xacro:property name="shield_thickness" value="0.03" />
+        <xacro:property name="shield_thickness" value="0.045" />
 
         <material name="gray">
             <color rgba="0.6 0.8 0.8 1" />
@@ -43,11 +43,11 @@
             <collision>
                 <origin rpy="0 0 0 " xyz="0 0 0" />
                 <geometry>
-                    <box size="${robotcell_length} ${shield_thickness} ${robotcell_height}" />
+                    <box size="${robotcell_length} ${shield_thickness*2} ${robotcell_height}" />
                 </geometry>
                 <material name="gray"/>
             </collision>
-            <xacro:inertial_box mass="5" x="${robotcell_length}" y="${shield_thickness}" z="${robotcell_height}">
+            <xacro:inertial_box mass="5" x="${robotcell_length}" y="${shield_thickness*2}" z="${robotcell_height}">
                 <origin rpy="0 0 0" xyz="0 0 0" />
             </xacro:inertial_box>
         </link>
@@ -95,7 +95,7 @@
         <joint name="${prefix}robotcell_base_to_visual" type="fixed">
             <parent link="${prefix}robotcell_base_link" />
             <child link="${prefix}visuals_link" />
-            <origin xyz="${robotcell_length/2+shield_thickness} -${robotcell_width/2+shield_thickness} 0" rpy="0 0 ${pi/2}" />
+            <origin xyz="${robotcell_length/2} -${robotcell_width/2} 0" rpy="0 0 ${pi/2}" />
         </joint>
         <joint name="${prefix}robotcell_base_to_front_joint" type="fixed">
             <parent link="${prefix}robotcell_base_link" />
@@ -106,7 +106,7 @@
         <joint name="${prefix}robotcell_base_to_rear" type="fixed">
             <parent link="${prefix}robotcell_base_link" />
             <child link="${prefix}shield_rear_link" />
-            <origin xyz="0 ${-robotcell_width/2+shield_thickness/2} ${robot_base_height+robotcell_height/2}" rpy="0 0 0" />
+            <origin xyz="0 ${-robotcell_width/2+shield_thickness} ${robot_base_height+robotcell_height/2}" rpy="0 0 0" />
         </joint>
 
         <joint name="${prefix}robotcell_base_to_left" type="fixed">
