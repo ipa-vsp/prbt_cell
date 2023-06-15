@@ -40,6 +40,7 @@
     <disable_collisions link1="prbt_flange" link2="shield_left_link" reason="Never"/>
     <disable_collisions link1="prbt_link_1" link2="prbt_link_2" reason="Adjacent"/>
     <disable_collisions link1="prbt_link_1" link2="prbt_link_3" reason="Never"/>
+    <disable_collisions link1="prbt_link_1" link2="prbt_schunk_egp40_base_link" reason="Never"/>
     <disable_collisions link1="prbt_link_1" link2="robotcell_base_link" reason="Never"/>
     <disable_collisions link1="prbt_link_1" link2="shield_front_link" reason="Never"/>
     <disable_collisions link1="prbt_link_1" link2="shield_left_link" reason="Never"/>
@@ -49,10 +50,7 @@
     <disable_collisions link1="prbt_link_2" link2="prbt_link_5" reason="Never"/>
     <disable_collisions link1="prbt_link_2" link2="prbt_schunk_egp40_base_link" reason="Never"/>
     <disable_collisions link1="prbt_link_2" link2="prbt_schunk_egp40_body_link" reason="Never"/>
-    <disable_collisions link1="prbt_link_2" link2="prbt_schunk_egp40_finger_right_link" reason="Never"/>
-    <disable_collisions link1="prbt_link_2" link2="shield_front_link" reason="Never"/>
     <disable_collisions link1="prbt_link_2" link2="shield_left_link" reason="Never"/>
-    <disable_collisions link1="prbt_link_2" link2="shield_rear_link" reason="Never"/>
     <disable_collisions link1="prbt_link_3" link2="prbt_link_4" reason="Adjacent"/>
     <disable_collisions link1="prbt_link_3" link2="prbt_link_5" reason="Never"/>
     <disable_collisions link1="prbt_link_3" link2="prbt_schunk_egp40_base_link" reason="Never"/>
