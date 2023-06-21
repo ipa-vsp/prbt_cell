@@ -121,10 +121,21 @@ def generate_launch_description():
         ),
     )
 
+    schunk_egp40_gripper_launch_file = PathJoinSubstitution([FindPackageShare("schunk_phidget_driver"), "launch", "schunk_phidget_driver.launch.py"])
+    schunk_egp40_gripper_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [
+                schunk_egp40_gripper_launch_file,
+            ]
+        ),
+        launch_arguments={}.items(),
+    )
+
     nodes_list = [
         robot_state_publisher_node,
         controller_manager_node,
         controller_spawner_node,
+        schunk_egp40_gripper_node,
         TimerAction(
             period=20.0,
             actions=[move_group]
