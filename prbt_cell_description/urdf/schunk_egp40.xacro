@@ -37,14 +37,14 @@
         <link name="${prefix}schunk_egp40_base_link">
             <visual>
                 <geometry>
-                    <mesh filename="package://prbt_cell_description/meshes/flange_v2.6.STL" scale="0.001 0.001 0.001" />
+                    <mesh filename="package://prbt_cell_description/meshes/flange_v3.STL" scale="0.001 0.001 0.001" />
                 </geometry>
                 <material name="blue" />
                 <origin rpy="${pi} 0 0" xyz="-${base_diameter/2} ${base_diameter/2} ${base_height}" />
             </visual>
             <collision>
                 <geometry>
-                    <mesh filename="package://prbt_cell_description/meshes/flange_v2.6.STL" scale="0.001 0.001 0.001" />
+                    <mesh filename="package://prbt_cell_description/meshes/flange_v3.STL" scale="0.001 0.001 0.001" />
                 </geometry>
                 <origin rpy="${pi} 0 0" xyz="-${base_diameter/2} ${base_diameter/2} ${base_height}" />
             </collision>
