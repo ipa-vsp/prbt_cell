@@ -114,7 +114,7 @@ int main(int argc, char** argv)
     planning_components->setStartStateToCurrentState();
 
     tf2::Quaternion q;
-    q.setRPY(3.142, -0.009, -3.137);
+    q.setRPY(3.131, 0.005, 1.583);
 
     geometry_msgs::msg::PoseStamped pick_pose;
     pick_pose.header.frame_id = "world";
@@ -122,12 +122,9 @@ int main(int argc, char** argv)
     pick_pose.pose.orientation.y = q.getY();
     pick_pose.pose.orientation.z = q.getZ();
     pick_pose.pose.orientation.w = q.getW();
-    pick_pose.pose.position.x = 0.007;
-    pick_pose.pose.position.y = 0.018;
-    pick_pose.pose.position.z = 1.147;
-
-    geometry_msgs::msg::PoseStamped pre_pick_pose;
-    pre_pick_pose.pose.position.z -= 0.1;
+    pick_pose.pose.position.x = -0.141;
+    pick_pose.pose.position.y = -0.065;
+    pick_pose.pose.position.z = 0.945;
 
     geometry_msgs::msg::PoseStamped place_pose;
     place_pose.header.frame_id = "world";
@@ -135,55 +132,69 @@ int main(int argc, char** argv)
     place_pose.pose.orientation.y = q.getY();
     place_pose.pose.orientation.z = q.getZ();
     place_pose.pose.orientation.w = q.getW();
-    place_pose.pose.position.x = 0.01;
-    place_pose.pose.position.y = 0.018;
-    place_pose.pose.position.z = 1.147;
+    place_pose.pose.position.x = -0.141;
+    place_pose.pose.position.y = 0.115;
+    place_pose.pose.position.z = 0.945;
 
-    geometry_msgs::msg::PoseStamped pre_place_pose;
-    pre_place_pose.pose.position.z -= 0.1;
 
     auto gripper_msg = schunk_command_interface::action::Egp40Command::Goal();
 
     while(rclcpp::ok())
     {
-        execute_pose(moveit_cpp_ptr, planning_components, pre_pick_pose);
+        RCLCPP_INFO(LOGGER, "Move to pre pick pose");
+        pick_pose.pose.position.z = 0.965;
+        execute_pose(moveit_cpp_ptr, planning_components, pick_pose);
         gripper_msg.is_open = true;
         auto gripper_handle = gripper_client->async_send_goal(gripper_msg, send_goal_options);
         // executor.spin_until_future_complete(gripper_handle);
-        gripper_handle.wait_for(std::chrono::seconds(1));
-        if ( != rclcpp::FutureReturnCode::SUCCESS)
+        auto future_handle = gripper_handle.wait_for(std::chrono::seconds(1));
+        if (future_handle != std::future_status::ready)
         {
             RCLCPP_ERROR(LOGGER, "Failed to set goal");
-            return 1;
+            // return 1;
         }
         rclcpp::sleep_for(std::chrono::seconds(1));
 
+        RCLCPP_INFO(LOGGER, "Move to pick pose");
+        pick_pose.pose.position.z = 0.945;
         execute_pose(moveit_cpp_ptr, planning_components, pick_pose);
         gripper_msg.is_open = false;
         gripper_handle = gripper_client->async_send_goal(gripper_msg, send_goal_options);
         // executor.spin_until_future_complete(gripper_handle);
-        if (executor.spin_until_future_complete(gripper_handle) != rclcpp::FutureReturnCode::SUCCESS)
+        future_handle = gripper_handle.wait_for(std::chrono::seconds(1));
+        if (future_handle != std::future_status::ready)
         {
             RCLCPP_ERROR(LOGGER, "Failed to set goal");
-            return 1;
+            // return 1;
         }
         rclcpp::sleep_for(std::chrono::seconds(1));
 
-        execute_pose(moveit_cpp_ptr, planning_components, pre_pick_pose);
+        RCLCPP_INFO(LOGGER, "Move to pre pick pose");
+        pick_pose.pose.position.z = 0.965;
+        execute_pose(moveit_cpp_ptr, planning_components, pick_pose);
         rclcpp::sleep_for(std::chrono::seconds(1));
 
-        execute_pose(moveit_cpp_ptr, planning_components, pre_place_pose);
+        RCLCPP_INFO(LOGGER, "Move to place pose");
+        place_pose.pose.position.z = 0.965;
+        execute_pose(moveit_cpp_ptr, planning_components, place_pose);
         rclcpp::sleep_for(std::chrono::seconds(1));
 
+        RCLCPP_INFO(LOGGER, "Move to place pose");
+        place_pose.pose.position.z = 0.945;
         execute_pose(moveit_cpp_ptr, planning_components, place_pose);
         gripper_msg.is_open = true;
         gripper_handle = gripper_client->async_send_goal(gripper_msg, send_goal_options);
         // executor.spin_until_future_complete(gripper_handle);
-        if (executor.spin_until_future_complete(gripper_handle) != rclcpp::FutureReturnCode::SUCCESS)
+        future_handle = gripper_handle.wait_for(std::chrono::seconds(1));
+        if (future_handle != std::future_status::ready)
         {
             RCLCPP_ERROR(LOGGER, "Failed to set goal");
-            return 1;
+            // return 1;
         }
+
+        RCLCPP_INFO(LOGGER, "Move to pre place pose");
+        place_pose.pose.position.z = 0.965;
+        execute_pose(moveit_cpp_ptr, planning_components, place_pose);
     }
 
     RCLCPP_INFO(LOGGER, "Shutting down.");
