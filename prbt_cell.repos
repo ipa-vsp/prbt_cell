@@ -19,3 +19,7 @@ repositories:
 		type: git
 		url: https://github.com/ipa-vsp/ros2_canopen.git
 		version: humble
+	any_robot_worker:
+		type: git
+		url: https://github.com/ipa-vsp/any_robot_worker.git
+		version: main
