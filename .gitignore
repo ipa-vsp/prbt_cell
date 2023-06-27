@@ -8,3 +8,5 @@ ros2_canopen
 realsense-ros
 
 any_robot_worker
+
+prbt_robot/
