@@ -19,3 +19,7 @@ repositories:
     type: git
     url: https://github.com/ipa-vsp/any_robot_worker.git
     version: main
+  prbt_robot:
+    type: git
+    url: https://github.com/ipa-vsp/prbt_robot.git
+    version: update-ros2-canopen-beta-release
