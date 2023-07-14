@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y \
 && apt-get clean
 
 RUN apt-get update && apt-get install -y \
-    ros-humble-behaviortree-cpp \
+    ros-humble-behaviortree-cpp  ros-humble-realsense2-camera \
+    ros-humble-realsense2-description ros-humble-realsense2-camera-msgs \
+    ros-humble-ros-testing ros-humble-moveit-visual-tools \
+    ros-humble-phidgets-api ros-humble-phidgets-drivers\
 && rm -rf /var/lib/apt/lists/* \
 && apt-get clean
 
