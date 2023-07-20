@@ -9,6 +9,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(pick_ik REQUIRED)
+find_package(realsense2_description REQUIRED)
 
 # install launch file
 install(DIRECTORY
