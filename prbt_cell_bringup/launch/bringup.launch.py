@@ -135,7 +135,7 @@ def generate_launch_description():
         robot_state_publisher_node,
         controller_manager_node,
         controller_spawner_node,
-        # schunk_egp40_gripper_node,
+        schunk_egp40_gripper_node,
         TimerAction(
             period=20.0,
             actions=[move_group]

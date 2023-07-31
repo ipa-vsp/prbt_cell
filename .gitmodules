@@ -1,9 +1,15 @@
-# [submodule "prbt_robot"]
-# 	path = prbt_robot
-# 	url = https://github.com/ipa-vsp/prbt_robot.git
-# [submodule "ros2_canopen"]
-# 	path = ros2_canopen
-# 	url = https://github.com/ipa-vsp/ros2_canopen.git
-# [submodule "realsense-ros"]
-# 	path = realsense-ros
-# 	url = https://github.com/IntelRealSense/realsense-ros.git
+[submodule "prbt_robot"]
+	path = prbt_robot
+	url = https://github.com/ipa-vsp/prbt_robot.git
+[submodule "ros2_canopen"]
+	path = ros2_canopen
+	url = https://github.com/ipa-vsp/ros2_canopen.git
+[submodule "realsense-ros"]
+	path = realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git
+[submodule "any_robot_worker"]
+	path = any_robot_worker
+	url = https://github.com/ipa-vsp/any_robot_worker.git
+[submodule "schunk_io_driver"]
+	path = schunk_io_driver
+	url = https://github.com/ipa-vsp/schunk_io_driver.git

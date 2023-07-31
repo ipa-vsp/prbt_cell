@@ -9,4 +9,6 @@ realsense-ros
 
 any_robot_worker
 
-prbt_robot/
+prbt_robot
+
+.gitmodules
