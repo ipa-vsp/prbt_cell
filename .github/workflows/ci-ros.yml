@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         ROS_DISTRO: [humble]
-        ROS_REPO: [testing]
+        ROS_REPO: [main]
     env:
       CCACHE_DIR: "${{ github.workspace }}/.ccache"
       UPSTREAM_WORKSPACE: 'prbtcell.repo'   # Add this line to specify your .repo file
