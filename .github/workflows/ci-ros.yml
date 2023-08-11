@@ -1,32 +1,54 @@
-name: Industrial CI Humble
+name: ROS2 Build
 
 on:
   push:
     branches: [ main ]
   pull_request:
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  industrial_ci:
-    name: ROS ${{ matrix.ROS_DISTRO }} (${{ matrix.ROS_REPO }})
+  deploy_documentation:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        ROS_DISTRO: [humble]
-        ROS_REPO: [main]
-    env:
-      CCACHE_DIR: "${{ github.workspace }}/.ccache"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+
+      - name: Build Doxygen Documentation
+        uses: mattnotmitt/doxygen-action@v1.9
         with:
-          path: ${{ env.CCACHE_DIR }}
-          key: ccache-${{ matrix.ROS_DISTRO }}-${{ matrix.ROS_REPO }}-${{github.run_id}}
-          restore-keys: |
-            ccache-${{ matrix.ROS_DISTRO }}-${{ matrix.ROS_REPO }}-
-      - uses: 'ros-industrial/industrial_ci@master'
-        env:
-          BEFORE_INSTALL_TARGET_DEPENDENCIES: 'sudo apt-get update'
-          ROS_DISTRO: ${{ matrix.ROS_DISTRO }}
-          ROS_REPO: ${{ matrix.ROS_REPO }}
+            doxyfile-path: 'doxyfile.config'
+
+      - name: Deploy Documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          keep_files: false
+
+  ci_build:
+    name: Colcon Build
+    needs: deploy_documentation
+    runs-on: ubuntu-latest
+    env:
+      BUILD_DIR: colcon_ws
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/${{ env.BUILD_DIR }}/src
+      - name: My Action
+        id: ros2
+        uses: prachandabhanu/ros2-github-action@main
+        with:
+          image:  prachandabhanu/build_env:ros2-humble-kuka
+          options: -v ${{ github.workspace }}/${{ env.BUILD_DIR }}/src:/${{ env.BUILD_DIR }}/src
+          run: |
+            cd /${{ env.BUILD_DIR }}/src
+            echo "cd inside colcon workspace src"
+            ls -a
+            cd /${{ env.BUILD_DIR }}
+            echo "cd inside colcon workspace"
+            ls -a
+            source /opt/ros/humble/setup.bash
+            echo "Now colcon build"
+            colcon build --symlink-install
+            echo "Finished to build"
