@@ -7,7 +7,6 @@ on:
 jobs:
   ci_build:
     name: Colcon Build
-    needs: deploy_documentation
     runs-on: ubuntu-latest
     env:
       BUILD_DIR: colcon_ws
