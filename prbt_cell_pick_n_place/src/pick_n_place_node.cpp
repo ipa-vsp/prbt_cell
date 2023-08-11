@@ -1,10 +1,10 @@
-#include <rclcpp/rclcpp.hpp>
 #include "rclcpp_action/rclcpp_action.hpp"
 #include <memory>
+#include <rclcpp/rclcpp.hpp>
 // MoveitCpp
+#include <geometry_msgs/msg/point_stamped.h>
 #include <moveit/moveit_cpp/moveit_cpp.h>
 #include <moveit/moveit_cpp/planning_component.h>
-#include <geometry_msgs/msg/point_stamped.h>
 
 #include "schunk_command_interface/action/egp40_command.hpp"
 
@@ -14,15 +14,16 @@ using GoalHandleGripperCommand = rclcpp_action::ClientGoalHandle<GripperCommand>
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("moveit_cpp_tutorial");
 static const std::string PLANNING_GROUP = "arm";
 
-void feedback_callback(GoalHandleGripperCommand::SharedPtr, const std::shared_ptr<const GripperCommand::Feedback> feedback)
+void feedback_callback(GoalHandleGripperCommand::SharedPtr,
+                       const std::shared_ptr<const GripperCommand::Feedback> feedback)
 {
     RCLCPP_INFO(LOGGER, "Received feedback: %s", feedback->operation_state.c_str());
 }
 
-void goal_response_callback(const GoalHandleGripperCommand::SharedPtr & goal_handle)
+void goal_response_callback(const GoalHandleGripperCommand::SharedPtr &goal_handle)
 {
     using namespace std::placeholders;
-    if(!goal_handle)
+    if (!goal_handle)
     {
         RCLCPP_ERROR(LOGGER, "Goal was rejected by server");
     }
@@ -32,10 +33,10 @@ void goal_response_callback(const GoalHandleGripperCommand::SharedPtr & goal_han
     }
 }
 
-void result_callback(const GoalHandleGripperCommand::WrappedResult & result)
+void result_callback(const GoalHandleGripperCommand::WrappedResult &result)
 {
     using namespace std::placeholders;
-    switch(result.code)
+    switch (result.code)
     {
         case rclcpp_action::ResultCode::SUCCEEDED:
             RCLCPP_INFO(LOGGER, "Goal succeeded");
@@ -53,7 +54,8 @@ void result_callback(const GoalHandleGripperCommand::WrappedResult & result)
     RCLCPP_INFO(LOGGER, "Result received");
 }
 
-void execute_pose(moveit_cpp::MoveItCppPtr& moveit_cpp, moveit_cpp::PlanningComponentPtr &planning_component, const geometry_msgs::msg::PoseStamped& pose)
+void execute_pose(moveit_cpp::MoveItCppPtr &moveit_cpp, moveit_cpp::PlanningComponentPtr &planning_component,
+                  const geometry_msgs::msg::PoseStamped &pose)
 {
     planning_component->setGoal(pose, "prbt_tool0");
     auto plan_solution = planning_component->plan();
@@ -68,8 +70,7 @@ void execute_pose(moveit_cpp::MoveItCppPtr& moveit_cpp, moveit_cpp::PlanningComp
     }
 }
 
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     rclcpp::NodeOptions node_options;
@@ -110,7 +111,7 @@ int main(int argc, char** argv)
     auto robot_model_ptr = moveit_cpp_ptr->getRobotModel();
     auto robot_start_state = planning_components->getStartState();
     auto joint_model_group_ptr = robot_model_ptr->getJointModelGroup(PLANNING_GROUP);
-    
+
     planning_components->setStartStateToCurrentState();
 
     tf2::Quaternion q;
@@ -136,10 +137,9 @@ int main(int argc, char** argv)
     place_pose.pose.position.y = 0.115;
     place_pose.pose.position.z = 0.945;
 
-
     auto gripper_msg = schunk_command_interface::action::Egp40Command::Goal();
 
-    while(rclcpp::ok())
+    while (rclcpp::ok())
     {
         RCLCPP_INFO(LOGGER, "Move to pre pick pose");
         pick_pose.pose.position.z = 0.965;

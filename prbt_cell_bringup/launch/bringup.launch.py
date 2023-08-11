@@ -22,12 +22,12 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     declared_arguments = []
-    
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
             description="Package where urdf file is stored.",
-            default_value="prbt_cell_description"
+            default_value="prbt_cell_description",
         )
     )
     declared_arguments.append(
@@ -45,24 +45,36 @@ def generate_launch_description():
         )
     )
 
-    controller_config = PathJoinSubstitution([FindPackageShare("prbt_robot_support"), "config", "prbt_ros2_control.yaml"])
-    bus_config = PathJoinSubstitution([FindPackageShare("prbt_robot_support"), "config", "prbt", "bus.yml"])
-    master_config = PathJoinSubstitution([FindPackageShare("prbt_robot_support"), "config", "prbt", "master.dcf"])
+    controller_config = PathJoinSubstitution(
+        [FindPackageShare("prbt_robot_support"), "config", "prbt_ros2_control.yaml"]
+    )
+    bus_config = PathJoinSubstitution(
+        [FindPackageShare("prbt_robot_support"), "config", "prbt", "bus.yml"]
+    )
+    master_config = PathJoinSubstitution(
+        [FindPackageShare("prbt_robot_support"), "config", "prbt", "master.dcf"]
+    )
     can_interface_name = LaunchConfiguration("can_interface_name")
 
     master_bin_path = os.path.join(
-                get_package_share_directory("prbt_robot_support"),
-                "config",
-                "prbt",
-                "master.bin",
-            )     
+        get_package_share_directory("prbt_robot_support"),
+        "config",
+        "prbt",
+        "master.bin",
+    )
     if not os.path.exists(master_bin_path):
-        master_bin_path = ""     
+        master_bin_path = ""
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
-            PathJoinSubstitution([FindPackageShare(LaunchConfiguration("description_package")), "urdf", "prbt_cell.urdf.xacro"]),
+            PathJoinSubstitution(
+                [
+                    FindPackageShare(LaunchConfiguration("description_package")),
+                    "urdf",
+                    "prbt_cell.urdf.xacro",
+                ]
+            ),
             " ",
             "bus_config:=",
             bus_config,
@@ -77,7 +89,11 @@ def generate_launch_description():
             can_interface_name,
         ]
     )
-    robot_description = {"robot_description": launch_ros.descriptions.ParameterValue(robot_description_content, value_type=str)}
+    robot_description = {
+        "robot_description": launch_ros.descriptions.ParameterValue(
+            robot_description_content, value_type=str
+        )
+    }
 
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
@@ -94,7 +110,9 @@ def generate_launch_description():
         parameters=[robot_description, controller_config],
     )
 
-    controller_spawner_launch_file = PathJoinSubstitution([FindPackageShare("prbt_robot_support"), "launch", "prbt_controller_spawner.launch.py"])
+    controller_spawner_launch_file = PathJoinSubstitution(
+        [FindPackageShare("prbt_robot_support"), "launch", "prbt_controller_spawner.launch.py"]
+    )
     controller_spawner_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
@@ -121,7 +139,9 @@ def generate_launch_description():
         ),
     )
 
-    schunk_egp40_gripper_launch_file = PathJoinSubstitution([FindPackageShare("schunk_phidget_driver"), "launch", "schunk_phidget_driver.launch.py"])
+    schunk_egp40_gripper_launch_file = PathJoinSubstitution(
+        [FindPackageShare("schunk_phidget_driver"), "launch", "schunk_phidget_driver.launch.py"]
+    )
     schunk_egp40_gripper_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
@@ -136,14 +156,8 @@ def generate_launch_description():
         controller_manager_node,
         controller_spawner_node,
         schunk_egp40_gripper_node,
-        TimerAction(
-            period=20.0,
-            actions=[move_group]
-        ),
-        TimerAction(
-            period=20.0,
-            actions=[rviz]
-        ),
+        TimerAction(period=20.0, actions=[move_group]),
+        TimerAction(period=20.0, actions=[rviz]),
     ]
 
     return LaunchDescription(declared_arguments + nodes_list)

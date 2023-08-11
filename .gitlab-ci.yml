@@ -1,0 +1,66 @@
+# include:
+#   - local: ci/gitlab_templates/RULES.yml
+
+variables:
+  UPSTREAM_WORKSPACE: 'upstream.repos'
+  DEFAULT_ROS_DISTROS: humble
+  ROS_DISTROS: humble rolling
+  STABLE_BRANCH: ros2
+  DOC_NAME: bt_manipulation_framework_guide
+
+.common:
+  tags: &ipa_runner
+    - asprunner
+
+precommit:
+  tags: *ipa_runner
+  stage: precommit
+  image: python:3.12.0b4-slim
+  before_script:
+    - apt update && apt install -y --no-install-recommends git
+    - pip install pre-commit
+    - apt install -y --no-install-recommends clang-format-14
+  script:
+    - pre-commit run --all-files
+
+.build:
+  stage: build
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git-core
+    - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci .industrial_ci
+  script: .industrial_ci/gitlab.sh ROS_DISTRO=${ROS_DISTRO}
+  services: []
+  variables:
+    ISOLATION: shell
+  tags: *ipa_runner
+
+framework:
+  extends:
+    - .build
+    - .on_allow_failure
+  image: ros:${ROS_DISTRO}-ros-core
+  parallel:
+    matrix:
+      - ROS_DISTRO:
+        - humble
+
+
+pages:
+  tags:
+    - intranet
+  stage: deploy
+  dependencies:
+    - doc
+  script:
+    - mv html public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "ros2"'
+
+stages:
+  - precommit
+  - build
+  - deploy

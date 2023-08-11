@@ -13,41 +13,56 @@ from launch_ros.actions import Node
 def generate_launch_description():
     ld = LaunchDescription()
 
-    prbt_xacro_file = os.path.join(get_package_share_directory('prbt_cell_description'), 'urdf',
-                                     'prbt_cell.urdf.xacro')
+    prbt_xacro_file = os.path.join(
+        get_package_share_directory("prbt_cell_description"), "urdf", "prbt_cell.urdf.xacro"
+    )
 
     robot_description = Command(
-        [
-            PathJoinSubstitution([FindExecutable(name='xacro')]), 
-            ' ', 
-            prbt_xacro_file
-        ])
+        [PathJoinSubstitution([FindExecutable(name="xacro")]), " ", prbt_xacro_file]
+    )
 
-    rviz_file = os.path.join(get_package_share_directory('prbt_cell_description'), 'launch',
-                            'basic.rviz')
+    rviz_file = os.path.join(
+        get_package_share_directory("prbt_cell_description"), "launch", "basic.rviz"
+    )
 
     robot_state_publisher = Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{'robot_description': launch_ros.descriptions.ParameterValue(value=robot_description, value_type=str)}],
-        )
-    
-    rviz2 = Node(package='rviz2',
-             executable='rviz2',
-             name='rviz2',
-             output='screen',
-             arguments=['-d', rviz_file],
-             parameters=[
-                {'robot_description': launch_ros.descriptions.ParameterValue(value=robot_description, value_type=str)},
-             ])
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name="robot_state_publisher",
+        output="screen",
+        parameters=[
+            {
+                "robot_description": launch_ros.descriptions.ParameterValue(
+                    value=robot_description, value_type=str
+                )
+            }
+        ],
+    )
+
+    rviz2 = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="screen",
+        arguments=["-d", rviz_file],
+        parameters=[
+            {
+                "robot_description": launch_ros.descriptions.ParameterValue(
+                    value=robot_description, value_type=str
+                )
+            },
+        ],
+    )
 
     joint_state_publisher_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
+        package="joint_state_publisher_gui",
+        executable="joint_state_publisher_gui",
         parameters=[
-            {'robot_description': launch_ros.descriptions.ParameterValue(value=robot_description, value_type=str)},
+            {
+                "robot_description": launch_ros.descriptions.ParameterValue(
+                    value=robot_description, value_type=str
+                )
+            },
         ],
     )
 

@@ -18,7 +18,7 @@
     <!-- Add world link -->
     <link name="world" />
 
-    <xacro:robot_cell name="robot_cell" prefix="" parent="world">  
+    <xacro:robot_cell name="robot_cell" prefix="" parent="world">
         <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:robot_cell>
 
@@ -26,7 +26,7 @@
     <xacro:prbt prefix="$(arg robot_prefix)" parent="robot_link">
         <origin xyz="0 0 0" rpy="0 0 -${pi/2}" />
     </xacro:prbt>
-    
+
     <xacro:prbt_ros2_control
         name="$(arg robot_prefix)"
         prefix="$(arg robot_prefix)"
