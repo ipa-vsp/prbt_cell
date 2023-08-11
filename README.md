@@ -1,7 +1,7 @@
 # PRBT Cell
 
 
-[![pipeline status](https://gitlab.cc-asp.fraunhofer.de/ipa326/demonstrator/prbt_cell/badges/main/pipeline.svg)](https://gitlab.cc-asp.fraunhofer.de/ipa326/demonstrator/prbt_cell/-/commits/main) 
+[![pipeline status](https://gitlab.cc-asp.fraunhofer.de/ipa326/demonstrator/prbt_cell/badges/main/pipeline.svg)](https://gitlab.cc-asp.fraunhofer.de/ipa326/demonstrator/prbt_cell/-/commits/main)
 
 [![ROS2 Build](https://github.com/ipa-vsp/prbt_cell/actions/workflows/ci-ros.yml/badge.svg)](https://github.com/ipa-vsp/prbt_cell/actions/workflows/ci-ros.yml)
 
