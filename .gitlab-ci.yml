@@ -12,6 +12,7 @@ stages:
   variables:
     ISOLATION: shell
     UPSTREAM_WORKSPACE: 'prbtcell.repo'   # Added to include your .repo file in CI process
+    RUN_TESTS: 'false'
   tags:
     - asprunner
 
