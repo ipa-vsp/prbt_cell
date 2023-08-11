@@ -11,7 +11,7 @@ stages:
   services: []
   variables:
     ISOLATION: shell
-    UPSTREAM_WORKSPACE: 'prbt.repo'   # Added to include your .repo file in CI process
+    UPSTREAM_WORKSPACE: 'prbtcell.repo'   # Added to include your .repo file in CI process
   tags:
     - asprunner
 
