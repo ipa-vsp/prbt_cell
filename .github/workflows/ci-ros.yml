@@ -3,8 +3,8 @@ name: ROS2 Build
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   # deploy_documentation:
