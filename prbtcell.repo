@@ -23,3 +23,7 @@ repositories:
     type: git
     url: https://github.com/ipa-vsp/prbt_robot.git
     version: update-ros2-canopen-beta-release
+  color_pose:
+    type: git
+    url: https://github.com/ipa-vsp/color_pose.git
+    version: main
