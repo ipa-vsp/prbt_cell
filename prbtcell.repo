@@ -11,6 +11,10 @@ repositories:
     type: git
     url: https://github.com/IntelRealSense/realsense-ros.git
     version: ros2-development
+  schunk_io_driver:
+    type: git
+    url: https://github.com/ipa-vsp/schunk_io_driver.git
+    version: main
   any_robot_worker:
     type: git
     url: https://github.com/ipa-vsp/any_robot_worker.git
