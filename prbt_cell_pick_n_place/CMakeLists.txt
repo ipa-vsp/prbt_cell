@@ -10,12 +10,12 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(rosparam_shortcuts REQUIRED)
+# find_package(rosparam_shortcuts REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(moveit_core REQUIRED)
 find_package(moveit_ros_planning REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
-find_package(schunk_command_interface REQUIRED)
+# find_package(schunk_command_interface REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED)
@@ -25,11 +25,11 @@ set(depencies
   rclcpp
   rclcpp_action
   geometry_msgs
-  rosparam_shortcuts
+  # rosparam_shortcuts
   moveit_core
   moveit_ros_planning
   moveit_ros_planning_interface
-  schunk_command_interface
+  # schunk_command_interface
   Boost
   yaml_cpp_vendor
 )
