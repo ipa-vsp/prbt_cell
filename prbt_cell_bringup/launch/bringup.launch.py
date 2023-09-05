@@ -1,9 +1,8 @@
 import os
-import time
 from ament_index_python import get_package_share_directory
-from launch import LaunchDescription, actions
+from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution, TextSubstitution
+from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.actions import IncludeLaunchDescription
@@ -22,11 +21,29 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 
 def generate_launch_description():
-    declared_arguments = [
-        DeclareLaunchArgument("description_package", description="Package where urdf file is stored.", default_value="prbt_cell_description"),
-        DeclareLaunchArgument("can_interface_name", default_value="vcan0", description="Interface name for can"),
-        DeclareLaunchArgument("use_ros2_control", default_value="true", description="Use ros2_control"),
-    ]
+    declared_arguments = []
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "description_package",
+            description="Package where urdf file is stored.",
+            default_value="prbt_cell_description",
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "can_interface_name",
+            default_value="vcan0",
+            description="Interface name for can",
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "use_ros2_control",
+            default_value="true",
+            description="Use ros2_control",
+        )
+    )
 
     controller_config = PathJoinSubstitution(
         [FindPackageShare("prbt_robot_support"), "config", "prbt_ros2_control.yaml"]
@@ -122,15 +139,6 @@ def generate_launch_description():
         ),
     )
 
-    # fake_slave_launch_file = PathJoinSubstitution(
-    #     [FindPackageShare("prbt_robot_support"), "launch", "prbt_fake_slave.launch.py"]
-    # )
-    # fake_condition = False
-    # if(LaunchConfiguration("can_interface_name") == "vcan0"):
-    #     fake_condition = True
-
-    # fake_slave_launch_node_condition = IfCondition(fake_condition)
-
     schunk_egp40_gripper_launch_file = PathJoinSubstitution(
         [FindPackageShare("schunk_phidget_driver"), "launch", "schunk_phidget_driver.launch.py"]
     )
@@ -142,19 +150,14 @@ def generate_launch_description():
         ),
         launch_arguments={}.items(),
     )
-    
+
     nodes_list = [
-        # Only include the fake_slave_launch_node if the condition is met
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([fake_slave_launch_file]),
-        #     condition=fake_slave_launch_node_condition,
-        # ),
         robot_state_publisher_node,
         controller_manager_node,
         controller_spawner_node,
         schunk_egp40_gripper_node,
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(str(moveit_config.package_path / "launch/move_group.launch.py"))),
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(str(moveit_config.package_path / "launch/moveit_rviz.launch.py")))
+        TimerAction(period=20.0, actions=[move_group]),
+        TimerAction(period=20.0, actions=[rviz]),
     ]
-    
+
     return LaunchDescription(declared_arguments + nodes_list)
