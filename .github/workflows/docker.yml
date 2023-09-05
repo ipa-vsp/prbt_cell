@@ -2,6 +2,8 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ['main']
+  pull_request:
+    branches: ['main']
 
 env:
   REGISTRY: ghcr.io
@@ -15,8 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ros_version: ['rolling', 'iron', 'humble']
-        base_image: ['ros:rolling', 'ros:iron', 'ros:humble']
+        - {ros_version: "rolling", base_image: "ros:rolling"}
+        - {ros_version: "iron", base_image: "ros:iron"}
+        - {ros_version: "humble", base_image: "ros:humble"}
 
     permissions:
       contents: read
@@ -37,7 +40,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: ${{ matrix.ros_version }}
+          tags: ${{ matrix.config.ros_version }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -45,7 +48,7 @@ jobs:
           context: .
           file: Dockerfile
           build-args: |
-            BASE_IMAGE=${{ matrix.base_image }}
+            BASE_IMAGE=${{ matrix.config.base_image }}
             ROSINSTALL_CI_JOB_TOKEN=${{ env.ROSINSTALL_CI_JOB_TOKEN }}
             CMAKE_ARGS=${{ env.CMAKE_ARGS }}
           push: true
