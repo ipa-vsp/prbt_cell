@@ -1,4 +1,4 @@
-FROM myenvos:22.04.humble.moveit
+FROM ros:noetic-robot
 
 RUN apt-get update && apt-get install -y \
         software-properties-common sudo \
@@ -8,11 +8,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-get update && apt-get install -y \
         can-utils net-tools \
-&& rm -rf /var/lib/apt/lists/* \
-&& apt-get clean
-
-RUN apt-get update && apt-get install -y \
-    ros-humble-behaviortree-cpp \
 && rm -rf /var/lib/apt/lists/* \
 && apt-get clean
 
