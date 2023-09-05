@@ -1,4 +1,8 @@
 repositories:
+  rosparam_shortcuts:
+    type: git
+    url: https://github.com/PickNikRobotics/rosparam_shortcuts.git
+    version: ros2
   ros2_canopen:
     type: git
     url: https://github.com/ipa-vsp/ros2_canopen.git
