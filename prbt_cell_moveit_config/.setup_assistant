@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: prbt_cell_description
+    relative_path: urdf/prbt_cell.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/prbt_cell.srdf
+  CONFIG:
+    author_name: ayz
+    author_email: axy@xyz.com
+    generated_timestamp: 1693912467
