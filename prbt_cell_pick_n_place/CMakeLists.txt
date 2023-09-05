@@ -34,10 +34,10 @@ set(depencies
   yaml_cpp_vendor
 )
 
-add_executable(pick_n_place_node src/pick_n_place_node.cpp)
-target_include_directories(pick_n_place_node PUBLIC include)
-# target_compile_features(pick_n_place_node PUBLIC c_std_99 cxx_std_17)
-ament_target_dependencies(pick_n_place_node ${depencies})
+# add_executable(pick_n_place_node src/pick_n_place_node.cpp)
+# target_include_directories(pick_n_place_node PUBLIC include)
+# # target_compile_features(pick_n_place_node PUBLIC c_std_99 cxx_std_17)
+# ament_target_dependencies(pick_n_place_node ${depencies})
 
 install(TARGETS pick_n_place_node
   DESTINATION lib/${PROJECT_NAME}
