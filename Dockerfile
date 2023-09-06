@@ -11,6 +11,9 @@ ARG ROSINSTALL_CI_JOB_TOKEN=
 ENV ROSINSTALL_CI_JOB_TOKEN $ROSINSTALL_CI_JOB_TOKEN
 ARG CI_JOB_TOKEN=
 ENV CI_JOB_TOKEN $CI_JOB_TOKEN
+RUN apt-get update -qq && apt-get install -q -y --no-install-recommends \
+    apt-utils \
+    && rm -rf /var/lib/apt/lists/*
 RUN apt-get update -qq
 RUN rm -rf /var/lib/apt/lists/*
 

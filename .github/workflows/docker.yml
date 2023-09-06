@@ -1,7 +1,9 @@
 name: Create and publish a Docker image
 on:
   push:
-    branches: ['main']
+    branches:
+      - main
+      - testing-ci
   pull_request:
     branches: ['main']
 
@@ -17,9 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        - {ros_version: "rolling", base_image: "ros:rolling"}
-        - {ros_version: "iron", base_image: "ros:iron"}
-        - {ros_version: "humble", base_image: "ros:humble"}
+        config:
+          - ros_version: "rolling"
+            base_image: "ros:rolling"
+          - ros_version: "iron"
+            base_image: "ros:iron"
+          - ros_version: "humble"
+            base_image: "ros:humble"
 
     permissions:
       contents: read
@@ -28,6 +34,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
