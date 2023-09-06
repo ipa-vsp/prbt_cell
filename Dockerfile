@@ -1,6 +1,6 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} as base
-FROM ghcr.io/ipa-vsp/docker_envs:main as builder
+FROM ghcr.io/ipa-vsp/docker_envs:my-workspace as builder
 
 FROM base as pre_build
 RUN mkdir -p /ros_ws/src
