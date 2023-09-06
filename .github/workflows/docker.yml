@@ -1,7 +1,7 @@
 name: Create and publish a Docker image
 on:
   push:
-    branches: 
+    branches:
       - main
       - testing-ci
   pull_request:
@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:

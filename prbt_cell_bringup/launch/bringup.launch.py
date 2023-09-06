@@ -3,7 +3,13 @@ import time
 from ament_index_python import get_package_share_directory
 from launch import LaunchDescription, actions
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution, TextSubstitution
+from launch.substitutions import (
+    Command,
+    FindExecutable,
+    LaunchConfiguration,
+    PathJoinSubstitution,
+    TextSubstitution,
+)
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.actions import IncludeLaunchDescription
@@ -23,9 +29,17 @@ from moveit_configs_utils import MoveItConfigsBuilder
 
 def generate_launch_description():
     declared_arguments = [
-        DeclareLaunchArgument("description_package", description="Package where urdf file is stored.", default_value="prbt_cell_description"),
-        DeclareLaunchArgument("can_interface_name", default_value="vcan0", description="Interface name for can"),
-        DeclareLaunchArgument("use_ros2_control", default_value="true", description="Use ros2_control"),
+        DeclareLaunchArgument(
+            "description_package",
+            description="Package where urdf file is stored.",
+            default_value="prbt_cell_description",
+        ),
+        DeclareLaunchArgument(
+            "can_interface_name", default_value="vcan0", description="Interface name for can"
+        ),
+        DeclareLaunchArgument(
+            "use_ros2_control", default_value="true", description="Use ros2_control"
+        ),
     ]
 
     controller_config = PathJoinSubstitution(
@@ -142,7 +156,7 @@ def generate_launch_description():
         ),
         launch_arguments={}.items(),
     )
-    
+
     nodes_list = [
         # Only include the fake_slave_launch_node if the condition is met
         # IncludeLaunchDescription(
@@ -153,8 +167,16 @@ def generate_launch_description():
         controller_manager_node,
         controller_spawner_node,
         schunk_egp40_gripper_node,
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(str(moveit_config.package_path / "launch/move_group.launch.py"))),
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(str(moveit_config.package_path / "launch/moveit_rviz.launch.py")))
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                str(moveit_config.package_path / "launch/move_group.launch.py")
+            )
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                str(moveit_config.package_path / "launch/moveit_rviz.launch.py")
+            )
+        ),
     ]
-    
+
     return LaunchDescription(declared_arguments + nodes_list)
