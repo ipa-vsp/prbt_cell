@@ -11,6 +11,27 @@ find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(pick_ik REQUIRED)
 find_package(realsense2_description REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
+# Add your node's executable
+add_executable(transform_node src/camera_calibration_data_coverter.cpp)
+
+# Ensure target dependencies are set correctly
+ament_target_dependencies(transform_node
+  rclcpp
+  tf2
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
+)
+
+install(TARGETS
+  transform_node
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 # install launch file
 install(DIRECTORY
