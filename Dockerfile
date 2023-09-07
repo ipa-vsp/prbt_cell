@@ -40,7 +40,7 @@ FROM base as deploy
 COPY --from=install /ros_ws/DEPENDS /ros_ws/DEPENDS
 COPY --from=install /ros_entrypoint.sh /ros_entrypoint.sh
 COPY --from=builder workspace.bash /builder/workspace.bash
-RUN apt-get update -qq && \
-    /builder/workspace.bash install_depends /ros_ws && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update -qq && \
+#     /builder/workspace.bash install_depends /ros_ws && \
+#     rm -rf /var/lib/apt/lists/*
 COPY --from=install /ros_ws/install /ros_ws/install
