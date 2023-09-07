@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Artifacts
 on:
   push:
     branches:
@@ -20,10 +20,10 @@ jobs:
     strategy:
       matrix:
         config:
-          - ros_version: "rolling"
-            base_image: "ros:rolling"
-          - ros_version: "iron"
-            base_image: "ros:iron"
+          # - ros_version: "rolling"
+          #   base_image: "ros:rolling"
+          # - ros_version: "iron"
+          #   base_image: "ros:iron"
           - ros_version: "humble"
             base_image: "ros:humble"
 
