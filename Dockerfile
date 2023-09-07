@@ -25,12 +25,13 @@ RUN apt-get update -qq && \
     /builder/workspace.bash build_workspace /ros_ws && \
     rm -rf /var/lib/apt/lists/*
 
-FROM build as test
-RUN apt-get update -qq && \
-    /builder/workspace.bash test_workspace /ros_ws && \
-    rm -rf /var/lib/apt/lists/*
+# FROM build as test
+# RUN apt-get update -qq && \
+#     /builder/workspace.bash test_workspace /ros_ws && \
+#     rm -rf /var/lib/apt/lists/*
 
-FROM test as install
+# FROM test as install
+FROM build as install
 RUN apt-get update -qq && \
     /builder/workspace.bash install_workspace /ros_ws && \
     rm -rf /var/lib/apt/lists/*

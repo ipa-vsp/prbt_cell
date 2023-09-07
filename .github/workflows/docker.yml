@@ -22,8 +22,8 @@ jobs:
         config:
           # - ros_version: "rolling"
           #   base_image: "ros:rolling"
-          # - ros_version: "iron"
-          #   base_image: "ros:iron"
+          - ros_version: "iron"
+            base_image: "ros:iron"
           - ros_version: "humble"
             base_image: "ros:humble"
 

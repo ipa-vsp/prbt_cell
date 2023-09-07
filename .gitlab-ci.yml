@@ -68,17 +68,17 @@ precommit:
 #     BASE_IMAGE: "ros:rolling"
 #     FOLDER: ""
 
-# iron_build:
-#   extends:
-#     - .build_template
-#     - .on_always
-#   tags:
-#     - intranet
-#   stage: build
-#   variables:
-#     ROS_VERSION: "iron"
-#     BASE_IMAGE: "ros:iron"
-#     FOLDER: ""
+iron_build:
+  extends:
+    - .build_template
+    - .on_always
+  tags:
+    - intranet
+  stage: build
+  variables:
+    ROS_VERSION: "iron"
+    BASE_IMAGE: "ros:iron"
+    FOLDER: ""
 
 humble_build:
   extends:
@@ -130,20 +130,20 @@ humble_build:
 #   dependencies:
 #     - rolling_build
 
-# iron_publish:
-#   extends:
-#     - .publish_template
-#     - .on_default_merge_tag
-#   tags:
-#     - intranet
-#   stage: publish
-#   variables:
-#     ROS_VERSION: "iron"
-#   needs:
-#     - job: iron_build
-#       artifacts: true
-#   dependencies:
-#     - iron_build
+iron_publish:
+  extends:
+    - .publish_template
+    - .on_default_merge_tag
+  tags:
+    - intranet
+  stage: publish
+  variables:
+    ROS_VERSION: "iron"
+  needs:
+    - job: iron_build
+      artifacts: true
+  dependencies:
+    - iron_build
 
 humble_publish:
   extends:
