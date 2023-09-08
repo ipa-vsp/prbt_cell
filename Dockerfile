@@ -31,6 +31,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 FROM test as install
+# FROM build as install
 RUN apt-get update -qq && \
     /builder/workspace.bash install_workspace /ros_ws && \
     rm -rf /var/lib/apt/lists/*
