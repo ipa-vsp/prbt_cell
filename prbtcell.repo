@@ -23,3 +23,7 @@ repositories:
     type: git
     url: https://github.com/ipa-vsp/color_pose.git
     version: vsp/color_pose_testing
+  moveit_calibration:
+    type: git
+    url: https://github.com/Abishalini/moveit_calibration.git
+    version: ros2_port
