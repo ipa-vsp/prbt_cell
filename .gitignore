@@ -12,3 +12,4 @@ any_robot_worker
 prbt_robot
 
 .gitmodules
+.vscode/*
