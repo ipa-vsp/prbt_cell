@@ -11,5 +11,10 @@ any_robot_worker
 
 prbt_robot
 
+bt_based_application_framework
+
+color_pose
+
 .gitmodules
+
 .vscode/*

@@ -13,3 +13,6 @@
 [submodule "schunk_io_driver"]
 	path = schunk_io_driver
 	url = https://github.com/ipa-vsp/schunk_io_driver.git
+[submodule "bt_based_application_framework"]
+	path = bt_based_application_framework
+	url = git@gitlab.cc-asp.fraunhofer.de:ipa326/demonstrator/bt_based_application_framework.git
