@@ -23,3 +23,7 @@ repositories:
     type: git
     url: https://github.com/ipa-vsp/color_pose.git
     version: vsp/color_pose_testing
+  schunk_io_driver:
+    type: git
+    url: https://github.com/ipa-vsp/schunk_io_driver.git
+    version: main
