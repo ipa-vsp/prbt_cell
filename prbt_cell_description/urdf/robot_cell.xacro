@@ -90,6 +90,18 @@
                 <origin rpy="0 0 0" xyz="0 0 0" />
             </xacro:inertial_box>
         </link>
+        <link name="${prefix}robotcell_collision_base_link">
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 ${robot_base_height/2}" />
+                <geometry>
+                    <box size="${robotcell_length} ${robotcell_width} ${robot_base_height+0.12}" />
+                </geometry>
+                <material name="gray"/>
+            </collision>
+            <xacro:inertial_box mass="70" x="${robotcell_length}" y="${robotcell_width}" z="${robot_base_height+0.12}">
+                <origin rpy="0 0 0" xyz="0 0 0" />
+            </xacro:inertial_box>
+        </link>
         <link name="${prefix}robot_link" />
 
         <joint name="${prefix}robotcell_base_to_visual" type="fixed">
@@ -123,6 +135,11 @@
         <joint name="${prefix}robot_cell_base_joint" type="fixed">
             <parent link="${parent}" />
             <child link="${prefix}robotcell_base_link" />
+            <xacro:insert_block name="origin" />
+        </joint>
+        <joint name="${prefix}robot_cell_collision_base_joint" type="fixed">
+            <parent link="${parent}" />
+            <child link="${prefix}robotcell_collision_base_link" />
             <xacro:insert_block name="origin" />
         </joint>
         <joint name="${prefix}robot_cell_base_to_robot_link" type="fixed">
