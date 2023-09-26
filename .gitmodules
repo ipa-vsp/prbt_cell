@@ -16,3 +16,6 @@
 [submodule "bt_based_application_framework"]
 	path = bt_based_application_framework
 	url = git@gitlab.cc-asp.fraunhofer.de:ipa326/demonstrator/bt_based_application_framework.git
+[submodule "color_pose"]
+	path = color_pose
+	url = https://github.com/ipa-vsp/color_pose.git
